@@ -2,12 +2,8 @@ class Solution {
 public:
     int maxProfit(vector<int>& arr) {
         int n=arr.size();
-        int m=arr[0];
+        int m=INT_MAX;
         int res=0;
-        for(int i=0;i<n;i++)
-        {
-            m=max(m,arr[i]);
-        }
         
         for(int i=0;i<n;i++)
         {
