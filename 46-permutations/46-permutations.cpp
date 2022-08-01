@@ -2,7 +2,7 @@ class Solution {
 public:
     
     void solve(int pos,vector<int> & arr, vector<vector<int>> &ans){
-        if(pos>=arr.size()){
+        if(pos>=arr.size()-1){
             ans.push_back(arr);
             return;
         }
