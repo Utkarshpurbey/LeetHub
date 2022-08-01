@@ -6,9 +6,11 @@ public:
             ans.push_back(ds);
             return ;
         }
-        ds.push_back(arr[i]);
-        solve(arr,i+1,ans,ds);
-        ds.pop_back();
+        vector<int> temp =ds;
+    
+        temp.push_back(arr[i]);
+        solve(arr,i+1,ans,temp);
+        //ds.pop_back();
         
         while(i+1 < arr.size() && arr[i]==arr[i+1]) i++;
         solve(arr,i+1,ans,ds);
