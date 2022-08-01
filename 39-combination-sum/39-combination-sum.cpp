@@ -1,34 +1,32 @@
 class Solution {
 public:
     
-    void solve(int i,vector<int> &arr,vector<int> res,set<vector<int>>&ans,int target)
-    {
-        if(i<0)
+   void solve(vector<int>& arr, vector<vector<int>> &ans ,vector<int> res,int i,int n,int target){
+        if(i==n)
         {
-            return;
+            if(target==0){
+                ans.push_back(res);
+            }
+            return ;
         }
-      if(target==0)
-      {
-          ans.insert(res);
-          return;
-      }
-    vector<int>temp1=res;
-    vector<int>temp2=res;
-        if(target>=arr[i] && target>=0)
-        {
-            temp1.push_back(arr[i]);
-            solve(i,arr,temp1,ans,target-arr[i]);
-        }
-        solve(i-1,arr,temp2,ans,target);
+        
+       if(target>=arr[i])
+       {
+           res.push_back(arr[i]);
+        solve(arr,ans,res,i,n,target-arr[i]);  
+             res.pop_back();
+       }
     
+      
+        solve(arr,ans,res,i+1,n,target);
     }
     
-    vector<vector<int>> combinationSum(vector<int>& arr, int target) {
-        set<vector<int>> ans;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
         vector<int> res;
-        solve(arr.size()-1,arr,res,ans,target);
-        vector<vector<int>> result(ans.begin(),ans.end());
-        return result;
+        int n=candidates.size();
+        solve(candidates,ans,res,0, n, target);
+        return ans;
         
     }
 };
