@@ -10,20 +10,25 @@
  * };
  */
 class Solution {
-    int height(TreeNode *root){
-        if(root==NULL)
-            return 0;
-     return max(height(root->left),height(root->right))+1;
+    pair<int,int> diameter(TreeNode *root){
+        if(root==NULL){
+            return {0,0};
+        }
+        pair<int,int> left = diameter(root->left);
+        pair<int,int> right= diameter(root->right);
+        
+        int op1= left.first;
+        int op2 = right.first;
+        int op3 = left.second+ right.second;
+        pair<int,int> ans;
+        ans.first= max(op1,max(op2,op3));
+        ans.second= max(left.second,right.second)+1;
+        return ans;
+
     }
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        if(root==NULL)
-            return 0;
-        int dia_general = height(root->left)+height(root->right);
-        int left =diameterOfBinaryTree(root->left);
-        int right= diameterOfBinaryTree(root->right);
-        
-        return max(max(dia_general,left),right);
-        
+      pair<int,int> ans= diameter(root);
+        return ans.first;
     }
 };
