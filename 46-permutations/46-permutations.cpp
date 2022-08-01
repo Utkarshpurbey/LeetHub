@@ -6,10 +6,11 @@ public:
             ans.push_back(arr);
             return;
         }
+        vector<int > temp = arr;
         for(int i=pos;i<arr.size();i++){
-            swap(arr[i],arr[pos]);
-            solve(pos+1,arr,ans);
-            swap(arr[i],arr[pos]);
+            swap(temp[i],temp[pos]);
+            solve(pos+1,temp,ans);
+            //swap(arr[i],arr[pos]);
         }
     }
     
