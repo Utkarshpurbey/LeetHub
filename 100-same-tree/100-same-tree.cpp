@@ -11,15 +11,15 @@
  */
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        if(p==NULL && q==NULL)
+    bool isSameTree(TreeNode* p1, TreeNode* p2) {
+        if(p1==NULL && p2== NULL)
             return true;
-        if(p!=NULL&&q==NULL)
+        if(p1==NULL || p2== NULL)
             return false;
-          if(p==NULL&&q!=NULL)
-            return false;
+        bool prime_condition = (p1->val== p2->val);
+        bool left = isSameTree(p1->left, p2->left);
+        bool right = isSameTree(p1->right, p2->right);
         
-        return ((p->val==q->val)&&isSameTree(p->left,q->left)&&isSameTree(p->right,q->right));
-        
+        return (prime_condition && left && right);
     }
 };
