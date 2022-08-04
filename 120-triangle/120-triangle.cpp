@@ -5,22 +5,24 @@ public:
         
         
         int n = arr.size();
-        vector<vector<int>> dp (n,vector<int> (n,-1));        
+        vector<int> front(n,0);       
         
         for(int i =0 ;i<n;i++)
         {
-            dp[n-1][i]= arr[n-1][i];
+            front[i]= arr[n-1][i];
         }
         for(int i = n-2;i>=0;i--){
+            vector<int> curr(n,0);
             for(int j = i;j>=0;j--){
                 
-                int down =  arr[i][j] + dp[i+1][j];
-                int dia = arr[i][j] +  dp[i+1][j+1];
+                int down =  arr[i][j] + front[j];
+                int dia = arr[i][j] +  front[j+1];
                 
-                dp[i][j] = min(down,dia);
+                curr[j] = min(down,dia);
             }
+            front = curr;
         }
-        return dp[0][0];
+        return front[0];
         
     }
 };
