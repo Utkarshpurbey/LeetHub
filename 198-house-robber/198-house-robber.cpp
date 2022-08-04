@@ -3,19 +3,21 @@ public:
         
     int rob(vector<int>& arr) {
         int n = arr.size();
-        vector<int> dp(n,-1);
-        dp[0] = arr[0];
+        int prev1 = arr[0];
+        int prev2 =0;
         
         for(int i=1;i<n;i++)
         {
             int fc = arr[i];
             if(i>1)
-                fc+= dp[i-2];
-            int sc = dp[i-1];
+                fc +=prev2;
+            int sc = prev1;
             
-            dp[i] = max(fc,sc);
+            int curr = max(fc,sc);
+            prev2= prev1;
+            prev1 = curr;
         }
-        return dp[n-1]; 
+        return prev1; 
         
         
     }
