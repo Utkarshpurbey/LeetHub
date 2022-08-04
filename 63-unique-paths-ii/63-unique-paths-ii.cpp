@@ -1,19 +1,26 @@
 class Solution {
-   private:
-  int fun(int n, int m, vector<vector<int>>&grid, vector<vector<int>>&dp){
-    if(n>=0 and m>=0 and grid[n][m]==1)return 0;
-    if(n==0 and m==0)return 1;
-    if(n<0 or m<0 )return 0;
-    if(dp[n][m]!=-1)return dp[n][m];
-    int left=fun(n-1,m,grid,dp);
-    int right=fun(n,m-1,grid,dp);
-    return dp[n][m]=left+right;
-  }
 public:
-    int uniquePathsWithObstacles(vector<vector<int>>&grid) {
-      int n=grid.size();
-      int m=grid[0].size();
-      vector<vector<int>>dp(n,vector<int>(m,-1)); 
-      return fun(n-1,m-1,grid,dp);
+    int solve(int i,int j,int m ,int n,vector<vector<int>> &arr,vector<vector<int>> &dp){
+        if(i==0 && j==0)
+            return 1;
+        if((i<0 || j<0) || arr[i][j]==1)
+            return 0;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        int up = solve(i-1,j,m,n,arr,dp);
+        int left = solve(i,j-1,m,n,arr,dp);
+        
+        return dp[i][j]=up + left;
+    }
+    int uniquePathsWithObstacles(vector<vector<int>>& arr) {
+        int m = arr.size();
+        int n = arr[0].size();
+        
+        vector<vector<int>> dp ( m , vector<int>(n,-1));
+        if(arr[0][0]==1)
+            return 0;
+        
+        return solve(m-1,n-1,m,n,arr,dp);
+        
     }
 };
