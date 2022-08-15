@@ -1,34 +1,28 @@
 class Solution {
 public:
     
-    vector<int> maza;
-    void dfs(vector<vector<int>>&graph,vector<bool>vis,int i,vector<vector<int>>&res)
-    {     vis[i]=1;
-          maza.push_back(i);  
-        for(int x:graph[i])
-        {
-            if(!vis[x] && x!=graph.size()-1)
-              {
-                dfs(graph,vis,x,res);
-              }
-              else if(!vis[x])
-              {
-                   maza.push_back(x);
-                   res.push_back(maza);   
-              }
-            maza.pop_back();
+    void dfs(int i,vector<vector<int>>& graph,vector<vector<int>>& ans,vector<int>& ds){
+        ds.push_back(i);
+        if(i== graph.size()-1)
+            ans.push_back(ds);
+        else{
+            for(int a: graph[i]){
+                dfs(a,graph,ans,ds);
+            }
         }
+        ds.pop_back();
     }
     
-    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) 
-     {
-       
-        int n =graph.size();
-        vector<bool> vis(n,0);
-        vector<vector<int>> res;
+    
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<vector<int>>ans;
+        vector<int> ds;
+        vector<bool>visited(graph.size(),false);
+        //dfs 0 se start karnege
+        dfs(0,graph,ans,ds);
+        return ans;
+
         
-        dfs(graph,vis,0,res);
         
-        return res;
     }
 };
