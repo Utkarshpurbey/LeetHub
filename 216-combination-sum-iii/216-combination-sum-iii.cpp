@@ -1,34 +1,32 @@
 class Solution {
 public:
-    
-    void help( int i ,int k, int target, vector<vector<int>> &ans, vector<int> ds)
+    void solve(int i,vector<vector<int>>&ans,vector<int> &ds, int k,int n)
     {
-        if(k==0)
-        {
-            if(target==0){
+        if(k==0){
+            if(n==0)
                 ans.push_back(ds);
-            }
-            return ;
+            return;
         }
-        if(i>9){
-            return ;
-        }
+        if(i>9)
+            return;
+        // take 
+        ds.push_back(i);
+        solve(i+1,ans,ds,k-1,n-i);
+        ds.pop_back();
         
-        if(target>= i){
-            ds.push_back(i);
-            help(i+1,k-1,target-i,ans,ds);
-            ds.pop_back();
-            
-        }
-        help(i+1,k,target,ans,ds);
+        solve(i+1,ans,ds,k,n);
         
     }
     
-    vector<vector<int>> combinationSum3(int k, int target) {
-    vector<vector<int>> ans;
-        vector<int> ds;
+    vector<vector<int>> combinationSum3(int k, int n) {
+        int i =1;
+        vector<vector<int>>ans;
+        vector<int>ds;
         
-        help (1, k,target,ans,ds);
+        // call the helper function
+        
+        solve(i,ans,ds,k,n);
         return ans;
+        
     }
 };
